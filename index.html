@@ -30,7 +30,7 @@
     <main>
       <!-- Search div -->
       <div class="main-container">
-        <div class="row">
+        <div class="row top-container">
           <div class="searchbarElement col-4" id="searchbarElement">
             <label for="searchbar">Search for a City:</label>
             <input
@@ -45,7 +45,7 @@
             </button>
           </div>
           <!-- Search Result Dispay -->
-          <div class="search-result-container col">
+          <div class="search-result-container col-7">
             <h3 class="cityName" id="cityName">Atlana (3/3/2020)</h3>
             <ul class="search-conditions-list">
               <li class="search-conditions" id="temp-condition">
@@ -85,80 +85,97 @@
             </button>
           </div>
           <!-- 5 day forcast -->
-          <div class="five-day-card col">
-            <h4 class="five-day-date">3/31/2022</h4>
-            <i class="fas fa-dragon five-day-icon"></i>
-            <ul class="five-day-conditions-list">
-              <li class="five-day-conditions" id="five-day-temp-condition">
-                Temp:<span>70</span>F
-              </li>
-              <li class="five-day-conditions" id="five-day-wind-condition">
-                Wind:<span>1.56 </span>MPH
-              </li>
-              <li class="five-day-conditions" id="five-day-humidity-condition">
-                Humidity <span>68 </span>%
-              </li>
-            </ul>
-          </div>
-          <div class="five-day-card col">
-            <h4 class="five-day-date">3/31/2022</h4>
-            <i class="fas fa-dragon five-day-icon"></i>
-            <ul class="five-day-conditions-list">
-              <li class="five-day-conditions" id="five-day-temp-condition">
-                Temp:<span>70</span>F
-              </li>
-              <li class="five-day-conditions" id="five-day-wind-condition">
-                Wind:<span>1.56 </span>MPH
-              </li>
-              <li class="five-day-conditions" id="five-day-humidity-condition">
-                Humidity <span>68 </span>%
-              </li>
-            </ul>
-          </div>
-          <div class="five-day-card col">
-            <h4 class="five-day-date">3/31/2022</h4>
-            <i class="fas fa-dragon five-day-icon"></i>
-            <ul class="five-day-conditions-list">
-              <li class="five-day-conditions" id="five-day-temp-condition">
-                Temp:<span>70</span>F
-              </li>
-              <li class="five-day-conditions" id="five-day-wind-condition">
-                Wind:<span>1.56 </span>MPH
-              </li>
-              <li class="five-day-conditions" id="five-day-humidity-condition">
-                Humidity <span>68 </span>%
-              </li>
-            </ul>
-          </div>
-          <div class="five-day-card col">
-            <h4 class="five-day-date">3/31/2022</h4>
-            <i class="fas fa-dragon five-day-icon"></i>
-            <ul class="five-day-conditions-list">
-              <li class="five-day-conditions" id="five-day-temp-condition">
-                Temp:<span>70</span>F
-              </li>
-              <li class="five-day-conditions" id="five-day-wind-condition">
-                Wind:<span>1.56 </span>MPH
-              </li>
-              <li class="five-day-conditions" id="five-day-humidity-condition">
-                Humidity <span>68 </span>%
-              </li>
-            </ul>
-          </div>
-          <div class="five-day-card col">
-            <h4 class="five-day-date">3/31/2022</h4>
-            <i class="fas fa-dragon five-day-icon"></i>
-            <ul class="five-day-conditions-list">
-              <li class="five-day-conditions" id="five-day-temp-condition">
-                Temp:<span>70</span>F
-              </li>
-              <li class="five-day-conditions" id="five-day-wind-condition">
-                Wind:<span>1.56 </span>MPH
-              </li>
-              <li class="five-day-conditions" id="five-day-humidity-condition">
-                Humidity <span>68 </span>%
-              </li>
-            </ul>
+          <div class="five-day-container col">
+            <div class="five-day-card">
+              <h4 class="five-day-date">3/31/2022</h4>
+              <i class="fas fa-dragon five-day-icon"></i>
+              <ul class="five-day-conditions-list">
+                <li class="five-day-conditions" id="five-day-temp-condition">
+                  Temp:<span>70</span>F
+                </li>
+                <li class="five-day-conditions" id="five-day-wind-condition">
+                  Wind:<span>1.56 </span>MPH
+                </li>
+                <li
+                  class="five-day-conditions"
+                  id="five-day-humidity-condition"
+                >
+                  Humidity <span>68 </span>%
+                </li>
+              </ul>
+            </div>
+            <div class="five-day-card">
+              <h4 class="five-day-date">3/31/2022</h4>
+              <i class="fas fa-dragon five-day-icon"></i>
+              <ul class="five-day-conditions-list">
+                <li class="five-day-conditions" id="five-day-temp-condition">
+                  Temp:<span>70</span>F
+                </li>
+                <li class="five-day-conditions" id="five-day-wind-condition">
+                  Wind:<span>1.56 </span>MPH
+                </li>
+                <li
+                  class="five-day-conditions"
+                  id="five-day-humidity-condition"
+                >
+                  Humidity <span>68 </span>%
+                </li>
+              </ul>
+            </div>
+            <div class="five-day-card">
+              <h4 class="five-day-date">3/31/2022</h4>
+              <i class="fas fa-dragon five-day-icon"></i>
+              <ul class="five-day-conditions-list">
+                <li class="five-day-conditions" id="five-day-temp-condition">
+                  Temp:<span>70</span>F
+                </li>
+                <li class="five-day-conditions" id="five-day-wind-condition">
+                  Wind:<span>1.56 </span>MPH
+                </li>
+                <li
+                  class="five-day-conditions"
+                  id="five-day-humidity-condition"
+                >
+                  Humidity <span>68 </span>%
+                </li>
+              </ul>
+            </div>
+            <div class="five-day-card">
+              <h4 class="five-day-date">3/31/2022</h4>
+              <i class="fas fa-dragon five-day-icon"></i>
+              <ul class="five-day-conditions-list">
+                <li class="five-day-conditions" id="five-day-temp-condition">
+                  Temp:<span>70</span>F
+                </li>
+                <li class="five-day-conditions" id="five-day-wind-condition">
+                  Wind:<span>1.56 </span>MPH
+                </li>
+                <li
+                  class="five-day-conditions"
+                  id="five-day-humidity-condition"
+                >
+                  Humidity <span>68 </span>%
+                </li>
+              </ul>
+            </div>
+            <div class="five-day-card">
+              <h4 class="five-day-date">3/31/2022</h4>
+              <i class="fas fa-dragon five-day-icon"></i>
+              <ul class="five-day-conditions-list">
+                <li class="five-day-conditions" id="five-day-temp-condition">
+                  Temp:<span>70</span>F
+                </li>
+                <li class="five-day-conditions" id="five-day-wind-condition">
+                  Wind:<span>1.56 </span>MPH
+                </li>
+                <li
+                  class="five-day-conditions"
+                  id="five-day-humidity-condition"
+                >
+                  Humidity <span>68 </span>%
+                </li>
+              </ul>
+            </div>
           </div>
         </div>
       </div>
