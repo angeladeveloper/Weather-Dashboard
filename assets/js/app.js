@@ -4,7 +4,7 @@ const searchBtn = document.querySelector("#searchBtn")
 const searchbar = document.querySelector("#searchbar")
 
 
-const APIkey = "b12981328a95eb2a66c796443f1fdb38";
+const APIkey = "302b9aa0a6fe06dd0591836ad2a5c178";
 
 
 searchbarElement.addEventListener('click', e => {
@@ -21,16 +21,41 @@ function makeApiCall(userSearch) {
   console.log(queryURL);
 
   fetch(queryURL)
-    .then(response => response.json()
-      .then(data => console.log(data)// how do I get this out?
-      ));
+    .then(function (response) {
+      if (!response.ok) {
+        throw response.json();
+      }
+
+      return response.json();
+    })
+    .then(data => {
+      console.log(data[0]);
+      const lat = +data[0].lat;
+      const lon = +data[0].lon;
+
+      takeLatLon(lat, lon);
+
+    }// how do I get this out?
+    );
 
   // const cityWeatherArray = data;
   // console.log(cityWeatherArray);
 }
-//get user search
 
-// turn user search into lat lon
+function takeLatLon(latitude, longitude) {
+  console.log(`Lat and lon respect ${latitude} ${longitude}`);
+  const lat = +latitude
+  const lon = +longitude
+  console.log(lon);
+  fetchWeather(lat, lon);
+}
+
+function fetchWeather(latitude, longitude) {
+  const weatherURL = `https://api.openweathermap.org/data/2.5/onecall?lat=${latitude}&lon=${longitude}&units{imperial}&appid=${APIkey}`;
+  console.log(weatherURL);
+}
+
+
 // user search to find data
 // display data in feild
 //change color of uv
