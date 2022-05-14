@@ -3,6 +3,7 @@ const searchHistoryList = document.querySelector(".list-group");
 const searchBtn = document.querySelector("#searchBtn")
 const searchbar = document.querySelector("#searchbar")
 const template = document.querySelector("#template")
+const fiveDayContainer = document.querySelector("#five-day-container")
 
 const APIkey = "302b9aa0a6fe06dd0591836ad2a5c178";
 
@@ -14,6 +15,29 @@ searchbarElement.addEventListener('click', e => {
   makeApiCall(userInput);
 })
 
+
+function displayCard(day) {
+  const unixTimestamp = day.dt * 1000
+  const dateObject = new Date(unixTimestamp);
+  const humanDateFormat = dateObject.toLocaleString()
+  const fiveTemp = day.temp.day - 273
+  const fiveWind = day.wind_speed
+  const fiveHum = day.humidity
+
+  const fiveDayCard = document.createElement("div");
+  fiveDayCard.setAttribute("class", "five-day-card")
+  const cardTitle = document.createElement("h4");
+  cardTitle.setAttribute("class", "five-day-date");
+  const cardList = document.createElement("ul");
+  cardList.setAttribute("class", "five-day-list");
+  const cardListItem = document.createElement("li");
+  cardListItem.textContent = fiveTemp;
+
+  cardList.appendChild(cardListItem);
+  fiveDayCard.appendChild(cardList);
+  fiveDayContainer.appendChild(fiveDayCard);
+
+}
 
 function makeApiCall(userSearch) {
 
@@ -99,21 +123,44 @@ function displayWeather(condition, icon, temp, humidity, uvi, wind, five_day) {
 }
 
 function displayFiveDay(forcast) {
-  forcast.forEach(day => {
-    console.log(day); //Object { dt: 1652990400, ..(ALOT MORE)... pressure: 1012, humidity: 67, … }
-    const unixTimestamp = day.dt * 1000
-    console.log("UNIX", unixTimestamp); //  UNIX 1652990400 <-- this is correct. 
-    const dateObject = new Date(unixTimestamp) // DATE OBJECT Date Mon Jan 19 1970 19:09:50 <-- obv, this is epoch
-    console.log("DATE OBJECT", dateObject);
-    const humanDateFormat = dateObject.toLocaleString()
-    console.log("HUMAN DATE", humanDateFormat); // HUMAN DATE 1/19/1970, 7:09:50 PM
+  forcast.forEach((day, index) => {
 
-    const fiveTemp = day.dt
-    const fiveWind = day.dt
-    const fiveHum = day.dt
+    displayCard(day);
+    // if (index === 0 || index > 5) return
+    // console.log(day);
+    // const unixTimestamp = day.dt * 1000
+    // console.log("UNIX", unixTimestamp);
+    // const dateObject = new Date(unixTimestamp);
+    // console.log("DATE OBJECT", dateObject);
+    // const humanDateFormat = dateObject.toLocaleString()
+    // console.log("HUMAN DATE", humanDateFormat);
+    // //temp
+    // const fiveTemp = day.temp.day - 273
+    // console.log("Temp", fiveTemp);
+    // //wind
+    // const fiveWind = day.wind_speed
+    // console.log("wind", fiveWind);
+    // //humidity
+    // const fiveHum = day.humidity
+    // console.log("HUM", fiveHum);
+
+
+
+    // const dayElement = document.importNode(template.content, true);
+    // const fiveDayDate = document.getElementsByClassName("five-day-date")
+    // fiveDayDate.innerText = humanDateFormat;
+    // const fiveDayTemp = document.getElementsByClassName("five-day-temp")
+    // fiveDayTemp.innerText = fiveTemp;
+    // const fiveDayWind = document.getElementsByClassName("five-day-wind");
+    // fiveDayWind.innerText = fiveWind;
+    // const fiveDayHum = document.getElementsByClassName("five-day-hum")
+    // fiveDayHum.innerText = fiveHum;
+    // fiveDayContainer.appendChild(dayElement);
   });
 }
-
+// function displayFiveDay({ dt, humidity, wind_speed }) {
+//   console.log(dt, humidity, wind_speed);
+// }
 function checkUvi(uvi) {
   console.log(uvi);
 
@@ -129,37 +176,9 @@ function checkUvi(uvi) {
     console.log(`The UVI is LOW`);
   }
 }
-// user search to find data
-// display data in feild
+
+
 //change color of uv
 //display 5 day
 // save search history in local
 
-let numArray = []
-
-for (let i = 0; i < 100000000; i++) {
-  numArray.push(i)
-}
-
-let test1 = Date.now()
-numArray.forEach((el, index) => {
-  if (index > 9) return
-})
-let test1End = Date.now()
-
-let test2 = Date.now()
-numArray.every((el, index) => {
-  console.log(el)
-  if (index > 9) return false
-  return true
-})
-let test2End = Date.now()
-
-let diff1 = test1End - test1
-let diff2 = test2End - test2
-
-console.log({ diff1, diff2 })
-console.log("test forEach start", test1)
-console.log("test forEach end", test1End)
-console.log("test every start", test2)
-console.log("test every end", test2End)
