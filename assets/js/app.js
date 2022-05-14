@@ -95,7 +95,6 @@ function fetchWeather(latitude, longitude) {
       return response.json();
     })
     .then(data => {
-      console.log(data);
       const currentCondition = data.current.weather[0].main
       const currenticon = data.current.weather[0].icon
       const currentTemp = Math.floor(data.current.temp - 273.15)
@@ -104,13 +103,10 @@ function fetchWeather(latitude, longitude) {
       const currentUVI = data.current.uvi
       const dailyArray = data.daily
 
-      console.log(currentCondition, currentHum, currentTemp, currentUVI, currentWind, currenticon, dailyArray);
       displayWeather(currentCondition, currenticon, currentTemp, currentHum, currentUVI, currentWind, dailyArray);// please dont mess up this order. 
       checkUvi(currentUVI);
-
     }
     )
-
     .catch((error) => {
       console.error("error", error);
     })
@@ -135,6 +131,31 @@ function displayFiveDay(forcast) {
     } else {
       displayCard(day);
     }
+
+  });
+}
+
+function checkUvi(uvi) {
+  console.log(uvi);
+
+  if (uvi >= 11) {
+    console.log(`The UVI is REAL BaD`);
+  } else if (uvi >= 8) {
+    console.log(`The UVI is BaD`);
+  } else if (uvi >= 6) {
+    console.log(`The UVI is HIGH`);
+  } else if (uvi >= 3) {
+    console.log(`The UVI is MEDIUM`);
+  } else {
+    console.log(`The UVI is LOW`);
+  }
+}
+
+
+//change color of uv
+//display 5 day
+// save search history in local
+
 
     // console.log(day);
     // const unixTimestamp = day.dt * 1000
@@ -165,29 +186,3 @@ function displayFiveDay(forcast) {
     // const fiveDayHum = document.getElementsByClassName("five-day-hum")
     // fiveDayHum.innerText = fiveHum;
     // fiveDayContainer.appendChild(dayElement);
-  });
-}
-// function displayFiveDay({ dt, humidity, wind_speed }) {
-//   console.log(dt, humidity, wind_speed);
-// }
-function checkUvi(uvi) {
-  console.log(uvi);
-
-  if (uvi >= 11) {
-    console.log(`The UVI is REAL BaD`);
-  } else if (uvi >= 8) {
-    console.log(`The UVI is BaD`);
-  } else if (uvi >= 6) {
-    console.log(`The UVI is HIGH`);
-  } else if (uvi >= 3) {
-    console.log(`The UVI is MEDIUM`);
-  } else {
-    console.log(`The UVI is LOW`);
-  }
-}
-
-
-//change color of uv
-//display 5 day
-// save search history in local
-
