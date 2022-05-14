@@ -12,6 +12,7 @@ searchbarElement.addEventListener('click', e => {
   e.preventDefault();
   const userInput = searchbar.value;
   console.log(userInput);
+  clearElement(fiveDayContainer);
   makeApiCall(userInput);
 })
 
@@ -20,7 +21,7 @@ function displayCard(day) {
   const unixTimestamp = day.dt * 1000
   const dateObject = new Date(unixTimestamp);
   const humanDateFormat = dateObject.toLocaleString()
-  const fiveTemp = day.temp.day - 273
+  const fiveTemp = Math.floor(day.temp.day) - 273
   const fiveWind = day.wind_speed
   const fiveHum = day.humidity
 
@@ -39,6 +40,11 @@ function displayCard(day) {
 
 }
 
+function clearElement(element) {
+  while (element.firstChild) {
+    element.removeChild(element.firstChild)
+  }
+}
 function makeApiCall(userSearch) {
 
   const queryURL = `http://api.openweathermap.org/geo/1.0/direct?q=${userSearch}&limit=1&appid=${APIkey}`
@@ -124,9 +130,12 @@ function displayWeather(condition, icon, temp, humidity, uvi, wind, five_day) {
 
 function displayFiveDay(forcast) {
   forcast.forEach((day, index) => {
+    if (index === 0 || index > 5) {
+      return
+    } else {
+      displayCard(day);
+    }
 
-    displayCard(day);
-    // if (index === 0 || index > 5) return
     // console.log(day);
     // const unixTimestamp = day.dt * 1000
     // console.log("UNIX", unixTimestamp);
