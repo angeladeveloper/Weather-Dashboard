@@ -12,6 +12,8 @@ Open weather API is very through, meaning their data comes in pretty large objec
 
 Simply Search the city name that you'd like to know the weather forecast for!
 
+- Until I have a public API key, this will not load unless run locally.
+
 Please let me [SKIP](#thank-goodness) this object
 
 #example-object
