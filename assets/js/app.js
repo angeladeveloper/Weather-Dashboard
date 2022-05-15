@@ -6,10 +6,13 @@ const template = document.querySelector("#template")
 const fiveDayContainer = document.querySelector("#five-day-container")
 
 const APIkey = "302b9aa0a6fe06dd0591836ad2a5c178";
+let LOCAL_STORAGE_KEY_SEARCH;
+let LOCAL_STORAGE_KEY_SEARCH_URL;
+let STORED_SEARCH = localStorage.getItem("LOCAL_STORAGE_KEY_SEARCH") || undefined;
 const toF = function (c) {
   return (c * 1.8) + 32
 }
-
+//search
 searchbarElement.addEventListener('click', e => {
   e.preventDefault();
   const userInput = searchbar.value;
@@ -18,35 +21,41 @@ searchbarElement.addEventListener('click', e => {
   makeApiCall(userInput);
 })
 
-
+//display the 5 day forecast
 function displayCard(day) {
   const unixTimestamp = day.dt * 1000
   const dateObject = new Date(unixTimestamp);
-  const humanDateFormat = dateObject.toLocaleString()
+  const humanDateFormat = dateObject.toLocaleDateString()
   let fiveTemp = Math.floor(day.temp.day) - 273
   const fiveWind = day.wind_speed
   const fiveHum = day.humidity
   console.log("fiveDayTempC:", fiveTemp);
   fiveTemp = Math.floor(toF(fiveTemp));
   console.log("fiveDayTemp:", fiveTemp);
+
   const fiveDayCard = document.createElement("div");
   fiveDayCard.setAttribute("class", "five-day-card")
+
   const cardTitle = document.createElement("h4");
   cardTitle.setAttribute("class", "five-day-date");
+  cardTitle.textContent = humanDateFormat
+
   const cardList = document.createElement("ul");
   cardList.setAttribute("class", "five-day-list");
+
   const cardListTemp = document.createElement("li");
   cardList.setAttribute("class", "five-day-li");
   cardListTemp.textContent = `Temp${fiveTemp} \u00B0F`
+
   const cardListWind = document.createElement("li");
   cardList.setAttribute("class", "five-day-li");
-
   cardListWind.textContent = `Wind:${fiveWind}MPH`;
+
   const cardListHum = document.createElement("li");
   cardList.setAttribute("class", "five-day-li");
-
   cardListHum.textContent = `Humidity:${fiveHum}%`;
-
+  // append all the things
+  cardList.appendChild(cardTitle)
   cardList.appendChild(cardListTemp);
   cardList.appendChild(cardListWind);
   cardList.appendChild(cardListHum);
@@ -54,14 +63,15 @@ function displayCard(day) {
   fiveDayContainer.appendChild(fiveDayCard);
 
 }
-
+//clear the results when user searches again
 function clearElement(element) {
   while (element.firstChild) {
     element.removeChild(element.firstChild)
   }
 }
-function makeApiCall(userSearch) {
 
+
+function makeApiCall(userSearch) {
   const queryURL = `http://api.openweathermap.org/geo/1.0/direct?q=${userSearch}&limit=1&appid=${APIkey}`
   console.log(queryURL);
 
@@ -121,6 +131,7 @@ function fetchWeather(latitude, longitude) {
       displayWeather(currentCondition, currenticon, currentTemp, currentHum, currentUVI, currentWind, dailyArray);// please dont mess up this order. 
       checkUvi(currentUVI);
       displayIcon(currenticon);
+      setSearchInLocal(weatherURL);
     }
     )
     .catch((error) => {
@@ -171,41 +182,12 @@ function checkUvi(uvi) {
     console.log(`The UVI is MEDIUM`);
   } else {
     console.log(`The UVI is LOW`);
+    document.getElementById("UV-condition").classList.add("low");
   }
 }
 
-
-//change color of uv
-//display 5 day
-// save search history in local
-
-
-    // console.log(day);
-    // const unixTimestamp = day.dt * 1000
-    // console.log("UNIX", unixTimestamp);
-    // const dateObject = new Date(unixTimestamp);
-    // console.log("DATE OBJECT", dateObject);
-    // const humanDateFormat = dateObject.toLocaleString()
-    // console.log("HUMAN DATE", humanDateFormat);
-    // //temp
-    // const fiveTemp = day.temp.day - 273
-    // console.log("Temp", fiveTemp);
-    // //wind
-    // const fiveWind = day.wind_speed
-    // console.log("wind", fiveWind);
-    // //humidity
-    // const fiveHum = day.humidity
-    // console.log("HUM", fiveHum);
-
-
-
-    // const dayElement = document.importNode(template.content, true);
-    // const fiveDayDate = document.getElementsByClassName("five-day-date")
-    // fiveDayDate.innerText = humanDateFormat;
-    // const fiveDayTemp = document.getElementsByClassName("five-day-temp")
-    // fiveDayTemp.innerText = fiveTemp;
-    // const fiveDayWind = document.getElementsByClassName("five-day-wind");
-    // fiveDayWind.innerText = fiveWind;
-    // const fiveDayHum = document.getElementsByClassName("five-day-hum")
-    // fiveDayHum.innerText = fiveHum;
-    // fiveDayContainer.appendChild(dayElement);
+function setSearchInLocal(url) {
+  LOCAL_STORAGE_KEY_SEARCH_URL = url
+  LOCAL_STORAGE_KEY_SEARCH = "Search term"
+  localStorage.setItem(LOCAL_STORAGE_KEY_SEARCH, LOCAL_STORAGE_KEY_SEARCH_URL)
+}

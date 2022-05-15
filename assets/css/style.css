@@ -81,17 +81,15 @@ h4 {
 }
 
 .search-result-container {
+  position: relative;
   background-color: var(--cardClr);
   border-radius: 8px;
   box-shadow: var(--boxShadow);
   border: 3px solid #1fabb2;
   margin-bottom: 3rem;
   padding: 1rem 1.5rem;
+  max-width: 500px;
 }
-/* .forecast-label {
-  text-align: center;
-}
- */
 
 .list-group {
   gap: 0.5rem;
@@ -102,6 +100,9 @@ h4 {
 }
 
 .right-column {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
   margin-right: 2rem;
   margin-left: 2rem;
   margin-top: 1rem;
@@ -153,4 +154,20 @@ h4 {
   padding: 2px;
   border-radius: 3px;
   margin-left: 2px;
+}
+
+.uv-index.low {
+  background-color: #34dfb4;
+}
+.uv-index.medium {
+  background-color: #f0ea37;
+}
+.uv-index.high {
+  background-color: #eeaa0c;
+}
+.uv-index.bad {
+  background-color: #af6600;
+}
+.uv-index.realBad {
+  background-color: #e12727;
 }
