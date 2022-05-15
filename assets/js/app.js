@@ -29,9 +29,7 @@ function displayCard(day) {
   let fiveTemp = Math.floor(day.temp.day) - 273
   const fiveWind = day.wind_speed
   const fiveHum = day.humidity
-  console.log("fiveDayTempC:", fiveTemp);
   fiveTemp = Math.floor(toF(fiveTemp));
-  console.log("fiveDayTemp:", fiveTemp);
 
   const fiveDayCard = document.createElement("div");
   fiveDayCard.setAttribute("class", "five-day-card")
@@ -70,7 +68,7 @@ function clearElement(element) {
   }
 }
 
-
+//take LAT AND LON AND CONVERT
 function makeApiCall(userSearch) {
   const queryURL = `http://api.openweathermap.org/geo/1.0/direct?q=${userSearch}&limit=1&appid=${APIkey}`
   console.log(queryURL);
@@ -101,10 +99,8 @@ function displayCityName(cityName) {
 
 }
 function takeLatLon(latitude, longitude) {
-  console.log(`Lat and lon respect ${latitude} ${longitude}`);
   const lat = +latitude
   const lon = +longitude
-  console.log(lon);
   fetchWeather(lat, lon);
 }
 
@@ -116,7 +112,6 @@ function fetchWeather(latitude, longitude) {
       if (!response.ok) {
         throw response.json();
       }
-
       return response.json();
     })
     .then(data => {
@@ -127,7 +122,6 @@ function fetchWeather(latitude, longitude) {
       const currentWind = data.current.wind_speed
       const currentUVI = data.current.uvi
       const dailyArray = data.daily
-
       displayWeather(currentCondition, currenticon, currentTemp, currentHum, currentUVI, currentWind, dailyArray);// please dont mess up this order. 
       checkUvi(currentUVI);
       displayIcon(currenticon);
@@ -142,7 +136,6 @@ function fetchWeather(latitude, longitude) {
 function displayWeather(condition, icon, temp, humidity, uvi, wind, five_day) {
   document.querySelector('#current-conditions').innerText = condition;
   document.querySelector('#humidity-condition').innerText = humidity;
-  document.querySelector('i').innerText = icon;
   console.log("Icon Code:", icon);
   temp = toF(temp);
   document.querySelector('#temp-condition').innerText = `${temp}\u00B0F`; //nned to convert
