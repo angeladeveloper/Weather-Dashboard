@@ -6,7 +6,9 @@ const template = document.querySelector("#template")
 const fiveDayContainer = document.querySelector("#five-day-container")
 
 const APIkey = "302b9aa0a6fe06dd0591836ad2a5c178";
-
+const toF = function (c) {
+  return (c * 1.8) + 32
+}
 
 searchbarElement.addEventListener('click', e => {
   e.preventDefault();
@@ -21,20 +23,33 @@ function displayCard(day) {
   const unixTimestamp = day.dt * 1000
   const dateObject = new Date(unixTimestamp);
   const humanDateFormat = dateObject.toLocaleString()
-  const fiveTemp = Math.floor(day.temp.day) - 273
+  let fiveTemp = Math.floor(day.temp.day) - 273
   const fiveWind = day.wind_speed
   const fiveHum = day.humidity
-
+  console.log("fiveDayTempC:", fiveTemp);
+  fiveTemp = Math.floor(toF(fiveTemp));
+  console.log("fiveDayTemp:", fiveTemp);
   const fiveDayCard = document.createElement("div");
   fiveDayCard.setAttribute("class", "five-day-card")
   const cardTitle = document.createElement("h4");
   cardTitle.setAttribute("class", "five-day-date");
   const cardList = document.createElement("ul");
   cardList.setAttribute("class", "five-day-list");
-  const cardListItem = document.createElement("li");
-  cardListItem.textContent = fiveTemp;
+  const cardListTemp = document.createElement("li");
+  cardList.setAttribute("class", "five-day-li");
+  cardListTemp.textContent = `Temp${fiveTemp} \u00B0F`
+  const cardListWind = document.createElement("li");
+  cardList.setAttribute("class", "five-day-li");
 
-  cardList.appendChild(cardListItem);
+  cardListWind.textContent = `Wind:${fiveWind}MPH`;
+  const cardListHum = document.createElement("li");
+  cardList.setAttribute("class", "five-day-li");
+
+  cardListHum.textContent = `Humidity:${fiveHum}%`;
+
+  cardList.appendChild(cardListTemp);
+  cardList.appendChild(cardListWind);
+  cardList.appendChild(cardListHum);
   fiveDayCard.appendChild(cardList);
   fiveDayContainer.appendChild(fiveDayCard);
 
@@ -105,6 +120,7 @@ function fetchWeather(latitude, longitude) {
 
       displayWeather(currentCondition, currenticon, currentTemp, currentHum, currentUVI, currentWind, dailyArray);// please dont mess up this order. 
       checkUvi(currentUVI);
+      displayIcon(currenticon);
     }
     )
     .catch((error) => {
@@ -116,13 +132,21 @@ function displayWeather(condition, icon, temp, humidity, uvi, wind, five_day) {
   document.querySelector('#current-conditions').innerText = condition;
   document.querySelector('#humidity-condition').innerText = humidity;
   document.querySelector('i').innerText = icon;
-  document.querySelector('#temp-condition').innerText = temp; //nned to convert
-  document.querySelector('#humidity-condition').innerText = humidity;
-  document.querySelector('#UV-condition').innerText = uvi;
-  document.querySelector('#wind-condition').innerText = wind;
+  console.log("Icon Code:", icon);
+  temp = toF(temp);
+  document.querySelector('#temp-condition').innerText = `${temp}\u00B0F`; //nned to convert
+  document.querySelector('#humidity-condition').innerText = `Humidity: ${humidity}`;
+  document.querySelector('#UV-condition').innerText = `UV Index: ${uvi}`;
+  document.querySelector('#wind-condition').innerText = `Wind: ${wind}`;
   const dailyArray = five_day
   displayFiveDay(dailyArray)
 }
+
+function displayIcon(icon) {
+  const iconUrl = `http://openweathermap.org/img/wn/${icon}@2x.png`
+  document.getElementById("currentIcon").setAttribute("src", iconUrl)
+}
+
 
 function displayFiveDay(forcast) {
   forcast.forEach((day, index) => {
@@ -134,7 +158,6 @@ function displayFiveDay(forcast) {
 
   });
 }
-
 function checkUvi(uvi) {
   console.log(uvi);
 
