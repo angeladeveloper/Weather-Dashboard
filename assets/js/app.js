@@ -36,9 +36,7 @@ function displayCard(day) {
 
   const fiveDayIcon = document.createElement("img");
   fiveDayIcon.setAttribute("class", "five-day-icon")
-
   const iconUrl = `http://openweathermap.org/img/wn/${fiveIcon}@2x.png`
-
   fiveDayIcon.setAttribute("src", iconUrl)
 
   const fiveDayCard = document.createElement("div");
@@ -63,8 +61,8 @@ function displayCard(day) {
   cardList.setAttribute("class", "five-day-li");
   cardListHum.textContent = `Humidity:${fiveHum}%`;
   // append all the things
-  cardList.appendChild(cardTitle)
-  // cardTitle.appendChild(fiveIcon)
+  fiveDayCard.appendChild(cardTitle)
+  cardTitle.appendChild(fiveDayIcon)
   cardList.appendChild(cardListTemp);
   cardList.appendChild(cardListWind);
   cardList.appendChild(cardListHum);
