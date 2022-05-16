@@ -169,16 +169,16 @@ function checkUvi(uvi) {
 
   if (uvi >= 11) {
     console.log(`The UVI is REAL BaD`);
-    classList.add("low");
+    // classList.add("low");
   } else if (uvi >= 8) {
     console.log(`The UVI is BaD`);
-    classList.add("low");
+    // classList.add("low");
   } else if (uvi >= 6) {
     console.log(`The UVI is HIGH`);
-    classList.add("low");
+    // classList.add("low");
   } else if (uvi >= 3) {
     console.log(`The UVI is MEDIUM`);
-    classList.add("low");
+    // classList.add("low");
   } else {
     document.getElementById("UV-condition").classList.add("low");
   }
