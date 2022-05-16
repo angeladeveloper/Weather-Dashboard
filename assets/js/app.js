@@ -5,15 +5,16 @@ const searchbar = document.querySelector("#searchbar")
 const template = document.querySelector("#template")
 const fiveDayContainer = document.querySelector("#five-day-container")
 
+
 const APIkey = "302b9aa0a6fe06dd0591836ad2a5c178";
-let LOCAL_STORAGE_KEY_SEARCH;
-let LOCAL_STORAGE_KEY_SEARCH_URL;
-let STORED_SEARCH = localStorage.getItem("LOCAL_STORAGE_KEY_SEARCH") || undefined;
+const citiesArray = [];
+let storedCities = JSON.parse(localStorage.getItem("city"));
+
 const toF = function (c) {
   return (c * 1.8) + 32
 }
 //search
-searchbarElement.addEventListener('click', e => {
+searchBtn.addEventListener('click', e => {
   e.preventDefault();
   const userInput = searchbar.value;
   console.log(userInput);
@@ -94,10 +95,12 @@ function makeApiCall(userSearch) {
       console.error("error", error);
     })
 }
+
 function displayCityName(cityName) {
   document.querySelector('#cityName').innerText = cityName
-
+  setSearchInLocal(cityName);
 }
+
 function takeLatLon(latitude, longitude) {
   const lat = +latitude
   const lon = +longitude
@@ -125,7 +128,6 @@ function fetchWeather(latitude, longitude) {
       displayWeather(currentCondition, currenticon, currentTemp, currentHum, currentUVI, currentWind, dailyArray);// please dont mess up this order. 
       checkUvi(currentUVI);
       displayIcon(currenticon);
-      setSearchInLocal(weatherURL);
     }
     )
     .catch((error) => {
@@ -167,20 +169,27 @@ function checkUvi(uvi) {
 
   if (uvi >= 11) {
     console.log(`The UVI is REAL BaD`);
+    classList.add("low");
   } else if (uvi >= 8) {
     console.log(`The UVI is BaD`);
+    classList.add("low");
   } else if (uvi >= 6) {
     console.log(`The UVI is HIGH`);
+    classList.add("low");
   } else if (uvi >= 3) {
     console.log(`The UVI is MEDIUM`);
+    classList.add("low");
   } else {
-    console.log(`The UVI is LOW`);
     document.getElementById("UV-condition").classList.add("low");
   }
 }
 
 function setSearchInLocal(url) {
-  LOCAL_STORAGE_KEY_SEARCH_URL = url
-  LOCAL_STORAGE_KEY_SEARCH = "Search term"
-  localStorage.setItem(LOCAL_STORAGE_KEY_SEARCH, LOCAL_STORAGE_KEY_SEARCH_URL)
+  citiesArray.push(url)
+  localStorage.setItem("city", JSON.stringify(citiesArray));
+}
+
+function displayCityList() {
+  storedCities.forEach(city => {
+  })
 }
