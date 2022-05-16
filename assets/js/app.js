@@ -6,7 +6,7 @@ const template = document.querySelector("#template")
 const fiveDayContainer = document.querySelector("#five-day-container")
 
 
-const APIkey = "302b9aa0a6fe06dd0591836ad2a5c178";
+var APIkey = "b12981328a95eb2a66c796443f1fdb38";
 const citiesArray = [];
 let storedCities = JSON.parse(localStorage.getItem("city"));
 
@@ -51,15 +51,15 @@ function displayCard(day) {
 
   const cardListTemp = document.createElement("li");
   cardList.setAttribute("class", "five-day-li");
-  cardListTemp.textContent = `Temp${fiveTemp} \u00B0F`
+  cardListTemp.textContent = `Temp: ${fiveTemp} \u00B0F`
 
   const cardListWind = document.createElement("li");
   cardList.setAttribute("class", "five-day-li");
-  cardListWind.textContent = `Wind:${fiveWind}MPH`;
+  cardListWind.textContent = `Wind: ${fiveWind}MPH`;
 
   const cardListHum = document.createElement("li");
   cardList.setAttribute("class", "five-day-li");
-  cardListHum.textContent = `Humidity:${fiveHum}%`;
+  cardListHum.textContent = `Humidity: ${fiveHum}%`;
   // append all the things
   fiveDayCard.appendChild(cardTitle)
   cardTitle.appendChild(fiveDayIcon)
