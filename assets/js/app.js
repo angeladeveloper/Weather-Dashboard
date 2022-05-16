@@ -1,5 +1,5 @@
 const searchbarElement = document.querySelector(".searchbarElement");
-const searchHistoryList = document.querySelector(".list-group");
+const searchHistoryList = document.querySelector(".search-history");
 const searchBtn = document.querySelector("#searchBtn")
 const searchbar = document.querySelector("#searchbar")
 const template = document.querySelector("#template")
@@ -20,6 +20,7 @@ searchBtn.addEventListener('click', e => {
   console.log(userInput);
   clearElement(fiveDayContainer);
   makeApiCall(userInput);
+  // displayCityList(storedCities);
 })
 
 //display the 5 day forecast
@@ -31,6 +32,14 @@ function displayCard(day) {
   const fiveWind = day.wind_speed
   const fiveHum = day.humidity
   fiveTemp = Math.floor(toF(fiveTemp));
+  const fiveIcon = day.weather[0].icon
+
+  const fiveDayIcon = document.createElement("img");
+  fiveDayIcon.setAttribute("class", "five-day-icon")
+
+  const iconUrl = `http://openweathermap.org/img/wn/${fiveIcon}@2x.png`
+
+  fiveDayIcon.setAttribute("src", iconUrl)
 
   const fiveDayCard = document.createElement("div");
   fiveDayCard.setAttribute("class", "five-day-card")
@@ -55,6 +64,7 @@ function displayCard(day) {
   cardListHum.textContent = `Humidity:${fiveHum}%`;
   // append all the things
   cardList.appendChild(cardTitle)
+  // cardTitle.appendChild(fiveIcon)
   cardList.appendChild(cardListTemp);
   cardList.appendChild(cardListWind);
   cardList.appendChild(cardListHum);
@@ -126,8 +136,8 @@ function fetchWeather(latitude, longitude) {
       const currentUVI = data.current.uvi
       const dailyArray = data.daily
       displayWeather(currentCondition, currenticon, currentTemp, currentHum, currentUVI, currentWind, dailyArray);// please dont mess up this order. 
-      checkUvi(currentUVI);
       displayIcon(currenticon);
+      // checkUvi(currentUVI);
     }
     )
     .catch((error) => {
@@ -146,6 +156,7 @@ function displayWeather(condition, icon, temp, humidity, uvi, wind, five_day) {
   document.querySelector('#wind-condition').innerText = `Wind: ${wind}`;
   const dailyArray = five_day
   displayFiveDay(dailyArray)
+  checkUvi(uvi);
 }
 
 function displayIcon(icon) {
@@ -169,16 +180,16 @@ function checkUvi(uvi) {
 
   if (uvi >= 11) {
     console.log(`The UVI is REAL BaD`);
-    // classList.add("low");
+    document.getElementById("UV-condition").classList.add("realBad");
   } else if (uvi >= 8) {
     console.log(`The UVI is BaD`);
-    // classList.add("low");
+    document.getElementById("UV-condition").classList.add("bad");
   } else if (uvi >= 6) {
     console.log(`The UVI is HIGH`);
-    // classList.add("low");
+    document.getElementById("UV-condition").classList.add("high");
   } else if (uvi >= 3) {
     console.log(`The UVI is MEDIUM`);
-    // classList.add("low");
+    document.getElementById("UV-condition").classList.add("medium");
   } else {
     document.getElementById("UV-condition").classList.add("low");
   }
@@ -189,7 +200,11 @@ function setSearchInLocal(url) {
   localStorage.setItem("city", JSON.stringify(citiesArray));
 }
 
-function displayCityList() {
-  storedCities.forEach(city => {
+function displayCityList(cities) {
+  cities.forEach(city => {
+    const searchHistroyBtn = document.createElement("btn");
+    searchHistroyBtn.setAttribute("class", "search-history-btn");
+    searchHistroyBtn.innerText = city.value
+    searchHistoryList.appendChild(searchBtn)
   })
 }
