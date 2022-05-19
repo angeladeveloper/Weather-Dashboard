@@ -166,6 +166,7 @@ function displayIcon(icon) {
 
 
 function displayFiveDay(forcast) {
+  fiveDayContainer.innerHTML = ""
   forcast.forEach((day, index) => {
     if (index === 0 || index > 5) {
       return
