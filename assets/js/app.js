@@ -7,8 +7,8 @@ const fiveDayContainer = document.querySelector("#five-day-container")
 
 
 var APIkey = "b12981328a95eb2a66c796443f1fdb38";
-const citiesArray = [];
-let storedCities = JSON.parse(localStorage.getItem("city"));
+const citiesArray = JSON.parse(localStorage.getItem("city")) || [];
+
 
 const toF = function (c) {
   return (c * 1.8) + 32
@@ -20,7 +20,7 @@ searchBtn.addEventListener('click', e => {
   console.log(userInput);
   clearElement(fiveDayContainer);
   makeApiCall(userInput);
-  // displayCityList(storedCities);
+
 })
 
 //display the 5 day forecast
@@ -97,6 +97,8 @@ function makeApiCall(userSearch) {
       const name = data[0].name;
       takeLatLon(lat, lon);
       displayCityName(name);
+      let storedCities = JSON.parse(localStorage.getItem("city"));
+      displayCityList(storedCities);
     }// how do I get this out?
     )
     .catch((error) => {
@@ -116,7 +118,7 @@ function takeLatLon(latitude, longitude) {
 }
 
 function fetchWeather(latitude, longitude) {
-  const weatherURL = `https://api.openweathermap.org/data/2.5/onecall?lat=${latitude}&lon=${longitude}&units{imperial}&appid=${APIkey}`;
+  const weatherURL = `https://api.openweathermap.org/data/2.5/onecall?lat=${latitude}&lon=${longitude}&units=imperial&appid=${APIkey}`;
   console.log(weatherURL);
   fetch(weatherURL)
     .then(function (response) {
@@ -199,10 +201,12 @@ function setSearchInLocal(url) {
 }
 
 function displayCityList(cities) {
+  searchHistoryList.innerHTML = ""
   cities.forEach(city => {
-    const searchHistroyBtn = document.createElement("btn");
+    const searchHistroyBtn = document.createElement("button");
     searchHistroyBtn.setAttribute("class", "search-history-btn");
-    searchHistroyBtn.innerText = city.value
-    searchHistoryList.appendChild(searchBtn)
+    searchHistroyBtn.setAttribute("onClick", `makeApiCall("${city}")`);
+    searchHistroyBtn.innerText = city
+    searchHistoryList.appendChild(searchHistroyBtn)
   })
 }
