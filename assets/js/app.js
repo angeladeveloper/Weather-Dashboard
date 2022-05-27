@@ -36,7 +36,7 @@ function displayCard(day) {
 
   const fiveDayIcon = document.createElement("img");
   fiveDayIcon.setAttribute("class", "five-day-icon")
-  const iconUrl = `http://openweathermap.org/img/wn/${fiveIcon}@2x.png`
+  const iconUrl = `https://openweathermap.org/img/wn/${fiveIcon}@2x.png`
   fiveDayIcon.setAttribute("src", iconUrl)
 
   const fiveDayCard = document.createElement("div");
