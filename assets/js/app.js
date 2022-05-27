@@ -79,7 +79,7 @@ function clearElement(element) {
 
 //take LAT AND LON AND CONVERT
 function makeApiCall(userSearch) {
-  const queryURL = `http://api.openweathermap.org/geo/1.0/direct?q=${userSearch}&limit=1&appid=${APIkey}`
+  const queryURL = `https://api.openweathermap.org/geo/1.0/direct?q=${userSearch}&limit=1&appid=${APIkey}`
   console.log(queryURL);
 
   fetch(queryURL)
@@ -160,7 +160,7 @@ function displayWeather(condition, icon, temp, humidity, uvi, wind, five_day) {
 }
 
 function displayIcon(icon) {
-  const iconUrl = `http://openweathermap.org/img/wn/${icon}@2x.png`
+  const iconUrl = `https://openweathermap.org/img/wn/${icon}@2x.png`
   document.getElementById("currentIcon").setAttribute("src", iconUrl)
 }
 
